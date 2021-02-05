@@ -85,9 +85,30 @@ def replace_others(my_df):
     '''
     # TODO : Replace players in each act not in the top 5 by a
     # new player 'OTHER' which sums their line count and percentage
-    df = my_df.sort_values(['PlayerLine']).groupby('Act').tail(5)
-    print(df)
-    return my_df
+    df = my_df.groupby('Act').apply(lambda x: x.sort_values(['PlayerLine'], ascending=False))
+    acts = df['Act'].unique()
+    others = pd.DataFrame(columns=list(my_df.columns))
+    frames_other = []
+    frames = []
+    for act in acts :
+        arr = df.loc[df['Act'] == act]
+        top6 = arr[:6]
+        last = arr[5:]
+        sumLineCount = 0
+        sumPercentCount = 0
+        for index, row in last.iterrows() :
+            sumLineCount += row[3]
+            sumPercentCount += row[2]
+        top6[5:]['Player'] = 'OTHER'
+        top6[5:]['PlayerLine'] = sumLineCount
+        top6[5:]['PlayerPercent'] = sumPercentCount
+        frames_other.append(top6[5:])
+        frames.append(top6)
+
+    others = pd.concat(frames_other)
+    my_df = pd.concat(frames)
+
+    return others
 
 
 def clean_names(my_df):
@@ -99,4 +120,9 @@ def clean_names(my_df):
             The df with formatted names
     '''
     # TODO : Clean the player names
+    def reformat_names(name):
+        return name.capitalize()
+    
+    my_df["Player"] = my_df["Player"].apply(reformat_names)
+
     return my_df
