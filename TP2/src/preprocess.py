@@ -85,7 +85,8 @@ def replace_others(my_df):
     '''
     # TODO : Replace players in each act not in the top 5 by a
     # new player 'OTHER' which sums their line count and percentage
-    df = my_df.sort_values(['Line']).groupby('Act').tail(5)
+    df = my_df.sort_values(['PlayerLine']).groupby('Act').tail(5)
+    print(df)
     return my_df
 
 
