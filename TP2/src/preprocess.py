@@ -25,39 +25,16 @@ def summarize_lines(my_df):
     '''
     # TODO : Modify the dataframe, removing the line content and replacing
     # it by line count and percent per player per act
-
-    df = my_df.groupby(['Player', 'Act']).sum()
-    df = df.sort_values(['Act'])
-    totalLinePerAct = df.groupby('Act').sum()
-    totalLinePerAct - totalLinePerAct.drop(columns=['Scene'])
-    df = df.rename(columns={'Line': 'PlayerLine'})
-    df = df.rename(columns={'Scene': 'PlayerPercent'})
-    df = df.reset_index()
-
-    for i in range(0 , df.shape[0]) :
-        if (df.iat[i,1] == 1):
-           df.iat[i,2] = (float(df.iat[i,3] / totalLinePerAct.iat[0,0]) * 100)
-           df['PlayerPercent'] = df['PlayerPercent'].astype(float)
-
-        if (df.iat[i,1] == 2):
-           df.iat[i,2] = (float(df.iat[i,3] / totalLinePerAct.iat[1,0]) * 100)
-           df['PlayerPercent'] = df['PlayerPercent'].astype(float)
-
-        if (df.iat[i,1] == 3):
-           df.iat[i,2] = (float(df.iat[i,3] / totalLinePerAct.iat[2,0]) * 100)
-           df['PlayerPercent'] = df['PlayerPercent'].astype(float)
-
-        if (df.iat[i,1] == 4):
-           df.iat[i,2] = (float(df.iat[i,3] / totalLinePerAct.iat[3,0]) * 100)
-           df['PlayerPercent'] = df['PlayerPercent'].astype(float)   
-
-        if (df.iat[i,1] == 5):
-           df.iat[i,2] = (float(df.iat[i,3] / totalLinePerAct.iat[4,0]) * 100)
-           df['PlayerPercent'] = df['PlayerPercent'].astype(float)     
-
-    my_df = df
-    print(my_df)
-    return my_df
+    df = my_df.groupby(["Act","Player"])["Line"].count().reset_index(name="PlayerLine")
+    acts = df['Act'].unique()
+    differentActs = []
+    for act in acts:
+        temp = df[df['Act'] == act]
+        temp['PlayerPercent'] = temp["PlayerLine"] / temp["PlayerLine"].sum() * 100
+        differentActs.append(temp)
+    df = pd.concat(differentActs)
+    print(df)
+    return df
 
 
 def replace_others(my_df):
@@ -85,30 +62,23 @@ def replace_others(my_df):
     '''
     # TODO : Replace players in each act not in the top 5 by a
     # new player 'OTHER' which sums their line count and percentage
-    df = my_df.groupby('Act').apply(lambda x: x.sort_values(['PlayerLine'], ascending=False))
-    acts = df['Act'].unique()
-    others = pd.DataFrame(columns=list(my_df.columns))
-    frames_other = []
-    frames = []
-    for act in acts :
-        arr = df.loc[df['Act'] == act]
-        top6 = arr[:6]
-        last = arr[5:]
-        sumLineCount = 0
-        sumPercentCount = 0
-        for index, row in last.iterrows() :
-            sumLineCount += row[3]
-            sumPercentCount += row[2]
-        top6[5:]['Player'] = 'OTHER'
-        top6[5:]['PlayerLine'] = sumLineCount
-        top6[5:]['PlayerPercent'] = sumPercentCount
-        frames_other.append(top6[5:])
-        frames.append(top6)
-
-    others = pd.concat(frames_other)
-    my_df = pd.concat(frames)
-
-    return others
+    top5 = my_df.groupby('Player')['Player','PlayerLine'].sum().nlargest(5, ['PlayerLine'])
+    top5_df = my_df[my_df['Player'].isin(top5.index)]
+    others_df = my_df[~my_df['Player'].isin(top5.index)]
+    differentActs = []
+    acts = others_df['Act'].unique()
+    for act in acts:
+        df_top5 = top5_df[top5_df['Act'] == act]
+        temp = others_df[others_df['Act'] == act]
+        tempPlayerLine = temp['PlayerLine'].sum()
+        tempPlayerPercent = temp['PlayerPercent'].sum()
+        tempDF = {'Act': [act], 'Player': ['OTHER'],'PlayerLine': [tempPlayerLine], 'PlayerPercent': [tempPlayerPercent]}
+        df_others = pd.DataFrame(data=tempDF)
+        df = pd.concat([df_top5,df_others]).sort_values('Player')
+        differentActs.append(df)
+    df = pd.concat(differentActs).reset_index(drop=True)
+    print(df)
+    return df
 
 
 def clean_names(my_df):
@@ -120,9 +90,6 @@ def clean_names(my_df):
             The df with formatted names
     '''
     # TODO : Clean the player names
-    def reformat_names(name):
-        return name.capitalize()
-    
-    my_df["Player"] = my_df["Player"].apply(reformat_names)
-
+    my_df["Player"] = my_df["Player"].str.title()
+    print(my_df)
     return my_df
