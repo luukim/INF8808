@@ -46,20 +46,18 @@ def create_template():
 
     '''
     # TODO : Define a theme as defined above
-    pio.templates["draft"] = go.layout.Template(
-        layout_annotations=[
-            dict(
-                font=dict(color=THEME['font_color'], family = THEME['font_family'])
-            )
-        ]
-    )
-    pio.templates.default = "draft"
-    plotly_template = pio.templates["draft"]
-    layout = go.layout.template.Layout(
-        paper_bgcolor = THEME["background_color"],
-        plot_bgcolor = THEME["background_color"],
-        hoverlabel=dict(bgcolor=THEME['label_background_color'], font_size = THEME['label_font_size']),
-        hovermode='closest',
-        template=plotly_template,
-    )
-    print(layout)
+    pio.templates['new_template'] = go.layout.Template(
+    layout=go.Layout(
+    font_color= THEME['font_color'],
+    font_family= THEME['font_family'],
+
+    paper_bgcolor=THEME['background_color'],
+    plot_bgcolor=THEME['background_color'],
+
+    hoverlabel = dict(bgcolor=THEME['label_background_color'], font_size=THEME['label_font_size'],font_color= THEME['font_color']),
+    hovermode='closest',
+
+# TODO : colors for the bars
+
+    ),
+)

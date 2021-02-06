@@ -5,3 +5,6 @@
 
 MODES = dict(count='Count', percent='Percent')
 MODE_TO_COLUMN = {MODES['count']: 'LineCount', MODES['percent']: 'LinePercent'}
+
+
+

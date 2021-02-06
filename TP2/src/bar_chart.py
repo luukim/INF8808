@@ -24,10 +24,10 @@ def init_figure():
     # TODO : Update the template to include our new theme and set the title
 
     fig.update_layout(
-        template=pio.templates['simple_white'],
+        template=pio.templates['simple_white+new_template'],
         dragmode=False,
         barmode='relative',
-        title=dict(text='Lines per act', xanchor='center', x=0.5),
+        title=dict(text='Lines per act'),
     )
 
     return fig
@@ -46,6 +46,18 @@ def draw(fig, data, mode):
     '''
     fig = go.Figure(fig)  # conversion back to Graph Object
     # TODO : Update the figure's data according to the selected mode
+    # y_axis = ""
+    # if (mode ==  MODES['count']): 
+    #     y_axis = (MODE_TO_COLUMN[MODES['count']])
+    # elif (mode ==  MODES['percent']): 
+    #     y_axis = (MODE_TO_COLUMN[MODES['percent']])
+
+    # fig = go.Figure(data=[
+    #     go.Bar(name='Benvolio', x=data['Act'], y=data[y_axis])
+    # ])
+
+    # fig.update_layout(barmode='stack')
+    # fig.show()
     return fig
 
 
