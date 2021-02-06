@@ -33,7 +33,6 @@ def summarize_lines(my_df):
         temp['PlayerPercent'] = temp["PlayerLine"] / temp["PlayerLine"].sum() * 100
         differentActs.append(temp)
     df = pd.concat(differentActs)
-    print(df)
     return df
 
 
@@ -77,7 +76,6 @@ def replace_others(my_df):
         df = pd.concat([df_top5,df_others]).sort_values('Player')
         differentActs.append(df)
     df = pd.concat(differentActs).reset_index(drop=True)
-    print(df)
     return df
 
 
@@ -91,5 +89,4 @@ def clean_names(my_df):
     '''
     # TODO : Clean the player names
     my_df["Player"] = my_df["Player"].str.title()
-    print(my_df)
     return my_df
