@@ -60,4 +60,5 @@ def create_template():
 # TODO : colors for the bars
 
     ),
+    data_bar=[go.Bar(marker=dict(color=THEME['bar_colors']))]
 )
