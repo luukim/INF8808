@@ -26,7 +26,6 @@ def init_figure():
     fig.update_layout(
         template=pio.templates['simple_white+new_template'],
         dragmode=False,
-        barmode='relative',
         title=dict(text='Lines per act'),
     )
 
@@ -46,22 +45,22 @@ def draw(fig, data, mode):
     '''
     fig = go.Figure(fig)  # conversion back to Graph Object
     # TODO : Update the figure's data according to the selected mode
+    
     y_axis = ""
     if (mode ==  MODES['count']): 
         y_axis = 'PlayerLine'
     elif (mode ==  MODES['percent']): 
         y_axis = 'PlayerPercent'
 
+    
+
     fig = go.Figure(data=[
-        go.Bar(name='Benvolio', x=data['Act'], y=data[y_axis]),
-        go.Bar(name='Juliet', x=data['Act'], y=data[y_axis]),
-        go.Bar(name='Mercutio', x=data['Act'], y=data[y_axis]),
-        go.Bar(name='Nurse', x=data['Act'], y=data[y_axis]),
-        go.Bar(name='Other', x=data['Act'], y=data[y_axis]),
-        go.Bar(name='Romeo', x=data['Act'], y=data[y_axis])
+        go.Bar( x=data['Act'], y=data[y_axis])
     ])
 
-    fig.update_layout(barmode='stack')
+    fig.update_layout(barmode='stack', 
+    template=pio.templates['simple_white+new_template'],
+    title=dict(text='Lines per act'))
     return fig
 
 
@@ -75,7 +74,6 @@ def update_y_axis(fig, mode):
         Returns: 
             The updated figure
     '''
-    fig = go.Figure(fig)
     y_axis = ""
     if (mode ==  MODES['count']): 
         y_axis = 'Lines (Count)'
@@ -83,5 +81,6 @@ def update_y_axis(fig, mode):
         y_axis = 'Lines (%)'
     
     fig.update_layout(yaxis_title = y_axis)
+
     return fig
     # TODO : Update the y axis title according to the current mode
