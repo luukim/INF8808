@@ -45,17 +45,22 @@ def draw(fig, data, mode):
     '''
     fig = go.Figure(fig)  # conversion back to Graph Object
     # TODO : Update the figure's data according to the selected mode
-    
+   
+
     y_axis = ""
     if (mode ==  MODES['count']): 
         y_axis = 'PlayerLine'
     elif (mode ==  MODES['percent']): 
         y_axis = 'PlayerPercent'
 
-    
 
     fig = go.Figure(data=[
-        go.Bar( x=data['Act'], y=data[y_axis])
+        go.Bar(name='Benvolio', x=data.loc[data['Player'] == 'Benvolio']['Act'], y=data.loc[data['Player'] == 'Benvolio'][y_axis]),
+        go.Bar(name='Juliet', x=data.loc[data['Player'] == 'Juliet']['Act'], y=data.loc[data['Player'] == 'Juliet'][y_axis]),
+        go.Bar(name='Mercutio', x=data.loc[data['Player'] == 'Mercutio']['Act'], y=data.loc[data['Player'] == 'Mercutio'][y_axis]),
+        go.Bar(name='Nurse', x=data.loc[data['Player'] == 'Nurse']['Act'], y=data.loc[data['Player'] == 'Nurse'][y_axis]),
+        go.Bar(name='Other', x=data.loc[data['Player'] == 'Other']['Act'], y=data.loc[data['Player'] == 'Other'][y_axis]),
+        go.Bar(name='Romeo', x=data.loc[data['Player'] == 'Romeo']['Act'], y=data.loc[data['Player'] == 'Romeo'][y_axis]),
     ])
 
     fig.update_layout(barmode='stack', 
