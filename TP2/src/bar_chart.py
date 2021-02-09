@@ -53,6 +53,7 @@ def draw(fig, data, mode):
     elif (mode ==  MODES['percent']): 
         y_axis = 'PlayerPercent'
 
+    data = update_x_axis(data)
 
     fig = go.Figure(data=[
         go.Bar(name='Benvolio', x=data.loc[data['Player'] == 'Benvolio']['Act'], y=data.loc[data['Player'] == 'Benvolio'][y_axis]),
@@ -60,7 +61,7 @@ def draw(fig, data, mode):
         go.Bar(name='Mercutio', x=data.loc[data['Player'] == 'Mercutio']['Act'], y=data.loc[data['Player'] == 'Mercutio'][y_axis]),
         go.Bar(name='Nurse', x=data.loc[data['Player'] == 'Nurse']['Act'], y=data.loc[data['Player'] == 'Nurse'][y_axis]),
         go.Bar(name='Other', x=data.loc[data['Player'] == 'Other']['Act'], y=data.loc[data['Player'] == 'Other'][y_axis]),
-        go.Bar(name='Romeo', x=data.loc[data['Player'] == 'Romeo']['Act'], y=data.loc[data['Player'] == 'Romeo'][y_axis]),
+        go.Bar(name='Romeo', x=data.loc[data['Player'] == 'Romeo']['Act'], y=data.loc[data['Player'] == 'Romeo'][y_axis])
     ])
 
     fig.update_layout(barmode='stack', 
@@ -89,3 +90,12 @@ def update_y_axis(fig, mode):
 
     return fig
     # TODO : Update the y axis title according to the current mode
+
+def update_x_axis(data):
+    data['Act'] = data['Act'].replace(1, 'Act 1')
+    data['Act'] = data['Act'].replace(2, 'Act 2')
+    data['Act'] = data['Act'].replace(3, 'Act 3')
+    data['Act'] = data['Act'].replace(4, 'Act 4')
+    data['Act'] = data['Act'].replace(5, 'Act 5')
+
+    return data
