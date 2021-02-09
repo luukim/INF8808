@@ -46,8 +46,6 @@ def draw(fig, data, mode):
     '''
     fig = go.Figure(fig)  # conversion back to Graph Object
     # TODO : Update the figure's data according to the selected mode
-    
-    acts = ['Act 1', 'Act 2', 'Act 3', 'Act 4', 'Act 5']
     y_axis = ""
     if (mode ==  MODES['count']): 
         y_axis = 'PlayerLine'
@@ -77,10 +75,13 @@ def update_y_axis(fig, mode):
         Returns: 
             The updated figure
     '''
+    fig = go.Figure(fig)
     y_axis = ""
     if (mode ==  MODES['count']): 
         y_axis = 'Lines (Count)'
     elif (mode ==  MODES['percent']): 
         y_axis = 'Lines (%)'
-
+    
+    fig.update_layout(yaxis_title = y_axis)
+    return fig
     # TODO : Update the y axis title according to the current mode
