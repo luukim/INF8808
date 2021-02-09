@@ -55,12 +55,7 @@ def draw(fig, data, mode):
     
 
     fig = go.Figure(data=[
-        go.Bar(name='Benvolio', x=data['Act'], y=data[y_axis]),
-        go.Bar(name='Juliet', x=data['Act'], y=data[y_axis]),
-        go.Bar(name='Mercutio', x=data['Act'], y=data[y_axis]),
-        go.Bar(name='Nurse', x=data['Act'], y=data[y_axis]),
-        go.Bar(name='Other', x=data['Act'], y=data[y_axis]),
-        go.Bar(name='Romeo', x=data['Act'], y=data[y_axis])
+        go.Bar( x=data['Act'], y=data[y_axis])
     ])
 
     fig.update_layout(barmode='stack', 
