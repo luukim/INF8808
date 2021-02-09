@@ -55,7 +55,7 @@ def draw(fig, data, mode):
 
     data = update_x_axis(data)
 
-    fig = go.Figure(data=[
+    fig.add_traces(data=[
         go.Bar(name='Benvolio', x=data.loc[data['Player'] == 'Benvolio']['Act'], y=data.loc[data['Player'] == 'Benvolio'][y_axis]),
         go.Bar(name='Juliet', x=data.loc[data['Player'] == 'Juliet']['Act'], y=data.loc[data['Player'] == 'Juliet'][y_axis]),
         go.Bar(name='Mercutio', x=data.loc[data['Player'] == 'Mercutio']['Act'], y=data.loc[data['Player'] == 'Mercutio'][y_axis]),
@@ -64,9 +64,7 @@ def draw(fig, data, mode):
         go.Bar(name='Romeo', x=data.loc[data['Player'] == 'Romeo']['Act'], y=data.loc[data['Player'] == 'Romeo'][y_axis])
     ])
 
-    fig.update_layout(barmode='stack', 
-    template=pio.templates['simple_white+new_template'],
-    title=dict(text='Lines per act'))
+    fig.update_layout(barmode='stack')
     return fig
 
 
