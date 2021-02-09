@@ -91,5 +91,5 @@ def clean_names(my_df):
     '''
     # TODO : Clean the player names
     my_df["Player"] = my_df["Player"].str.title()
-    #print(my_df)
+    # print(my_df)
     return my_df
