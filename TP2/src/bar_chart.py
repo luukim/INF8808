@@ -46,7 +46,7 @@ def draw(fig, data, mode):
     '''
     fig = go.Figure(fig)  # conversion back to Graph Object
     # TODO : Update the figure's data according to the selected mode
-
+    
     acts = ['Act 1', 'Act 2', 'Act 3', 'Act 4', 'Act 5']
     y_axis = ""
     if (mode ==  MODES['count']): 
@@ -64,7 +64,6 @@ def draw(fig, data, mode):
     ])
 
     fig.update_layout(barmode='stack')
-    fig.show()
     return fig
 
 
