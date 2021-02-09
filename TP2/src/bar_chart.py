@@ -45,7 +45,7 @@ def draw(fig, data, mode):
     '''
     fig = go.Figure(fig)  # conversion back to Graph Object
     # TODO : Update the figure's data according to the selected mode
-    
+
     y_axis = ""
     if (mode ==  MODES['count']): 
         y_axis = 'PlayerLine'
@@ -53,6 +53,8 @@ def draw(fig, data, mode):
         y_axis = 'PlayerPercent'
 
     data = update_x_axis(data)
+
+    fig.data = []
 
     fig.add_traces(data=[
         go.Bar(name='Benvolio', x=data.loc[data['Player'] == 'Benvolio']['Act'], y=data.loc[data['Player'] == 'Benvolio'][y_axis]),
