@@ -45,7 +45,7 @@ def draw(fig, data, mode):
     '''
     fig = go.Figure(fig)  # conversion back to Graph Object
     # TODO : Update the figure's data according to the selected mode
-    
+
     y_axis = ""
     if (mode ==  MODES['count']): 
         y_axis = 'PlayerLine'
