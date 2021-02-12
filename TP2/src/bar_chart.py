@@ -59,7 +59,7 @@ def draw(fig, data, mode):
 
     for name in names:
         data_bar.append(go.Bar(go.Bar(name=name, x=data.loc[data['Player'] == name]['Act'], y=data.loc[data['Player'] == name][y_axis], 
-            hovertemplate= "<b style=color:black;font-size:24px;font-family:Grenze Gotisch>%{x}</b><br><br><b>Player : </b>" + name + "<br> <b>Lines : </b> %{y}")))
+            hovertemplate= get_hover_template(name,mode))))
 
     fig = go.Figure(data=data_bar)
 

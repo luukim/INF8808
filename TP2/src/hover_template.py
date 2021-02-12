@@ -3,14 +3,6 @@
 '''
 from modes import MODES
 
-import plotly.graph_objects as go
-import plotly.express as px
-import pandas as pd
-import math
-
-import dash_html_components as html
-
-
 def get_hover_template(name, mode):
     '''
         Sets the template for the hover tooltips.
@@ -36,11 +28,9 @@ def get_hover_template(name, mode):
             The hover template with the elements descibed above
     '''
     # TODO: Generate and return the over template    
-    # x = ['Act 1', 'Act 2', 'Act 3', 'Act 4', 'Act 5']
-    # y = 
 
-    # hovertemplate = html.span(title= 'Act1', style='Grenze Gotish', )
-    # hovertemplate = html.Div([html.P("Hovermode"), ])
-
+    unit = ''
+    if mode == MODES['percent'] :
+        unit = '%'
     
-    return "<b>Player : </b>" + name + "<br> " + "<b>Lines : </b>105"
+    return "<b style=color:black;font-size:24px;font-family:Grenze Gotisch>%{x}</b><br><br><b>Player : </b>" + name + "<br> <b>Lines : </b> %{y}" + unit
