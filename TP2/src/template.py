@@ -46,6 +46,10 @@ def create_template():
 
     '''
     # TODO : Define a theme as defined above
+
+    data_bar = []
+    for i in range(0,6):
+        data_bar.append(go.Bar(marker=dict(color=THEME['bar_colors'][i])))
     
     pio.templates['new_template'] = go.layout.Template(
     layout=go.Layout(
@@ -59,12 +63,5 @@ def create_template():
     hovermode='closest',
     ),
     
-    data_bar=[
-        go.Bar(marker=dict(color=THEME['bar_colors'][0])),
-        go.Bar(marker=dict(color=THEME['bar_colors'][1])),
-        go.Bar(marker=dict(color=THEME['bar_colors'][2])),
-        go.Bar(marker=dict(color=THEME['bar_colors'][3])),
-        go.Bar(marker=dict(color=THEME['bar_colors'][4])),
-        go.Bar(marker=dict(color=THEME['bar_colors'][5]))
-    ]
+    data_bar=data_bar
 )

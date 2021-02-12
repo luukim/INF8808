@@ -29,14 +29,11 @@ def get_hover_template(name, mode):
     '''
     # TODO: Generate and return the over template    
 
-
-
     unit = ''
     y = "%{y}"
 
     if mode == MODES['percent'] :
         unit = '%'
         y = "%{y:.2f}"
-
     
-    return "<b style=color:black;font-size:24px;font-family:Grenze Gotisch>%{x}</b><br><br><b>Player : </b>" + name + "<br><b>Lines : </b>" +  y + unit
+    return "<b style=color:black;font-size:24px;font-family:Grenze Gotisch>%{x}</b><br><br><b>Player : </b>" + name + "<br><b>Lines : </b>" + y + unit
