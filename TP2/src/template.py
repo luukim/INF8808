@@ -60,11 +60,11 @@ def create_template():
     ),
     
     data_bar=[
-    go.Bar(marker=dict(color=THEME['bar_colors'][0])),
-    go.Bar(marker=dict(color=THEME['bar_colors'][1])),
-    go.Bar(marker=dict(color=THEME['bar_colors'][2])),
-    go.Bar(marker=dict(color=THEME['bar_colors'][3])),
-    go.Bar(marker=dict(color=THEME['bar_colors'][4])),
-    go.Bar(marker=dict(color=THEME['bar_colors'][5]))
+        go.Bar(marker=dict(color=THEME['bar_colors'][0])),
+        go.Bar(marker=dict(color=THEME['bar_colors'][1])),
+        go.Bar(marker=dict(color=THEME['bar_colors'][2])),
+        go.Bar(marker=dict(color=THEME['bar_colors'][3])),
+        go.Bar(marker=dict(color=THEME['bar_colors'][4])),
+        go.Bar(marker=dict(color=THEME['bar_colors'][5]))
     ]
 )

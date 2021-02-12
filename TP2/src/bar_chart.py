@@ -54,16 +54,19 @@ def draw(fig, data, mode):
 
     data = update_x_axis(data)
 
-    fig.add_traces(data=[
-        go.Bar(name='Benvolio', x=data.loc[data['Player'] == 'Benvolio']['Act'], y=data.loc[data['Player'] == 'Benvolio'][y_axis]),
-        go.Bar(name='Juliet', x=data.loc[data['Player'] == 'Juliet']['Act'], y=data.loc[data['Player'] == 'Juliet'][y_axis]),
-        go.Bar(name='Mercutio', x=data.loc[data['Player'] == 'Mercutio']['Act'], y=data.loc[data['Player'] == 'Mercutio'][y_axis]),
-        go.Bar(name='Nurse', x=data.loc[data['Player'] == 'Nurse']['Act'], y=data.loc[data['Player'] == 'Nurse'][y_axis]),
-        go.Bar(name='Other', x=data.loc[data['Player'] == 'Other']['Act'], y=data.loc[data['Player'] == 'Other'][y_axis]),
-        go.Bar(name='Romeo', x=data.loc[data['Player'] == 'Romeo']['Act'], y=data.loc[data['Player'] == 'Romeo'][y_axis])
-    ])
+    data_bar = []
+    names = data['Player'].unique()
 
-    fig.update_layout(barmode='stack')
+    for name in names:
+        print(data.loc[data['Player'] == name])
+        data_bar.append(go.Bar(go.Bar(name=name, x=data.loc[data['Player'] == name]['Act'], y=data.loc[data['Player'] == name][y_axis], 
+            hovertemplate= "<b style=color:black;font-size:24px;font-family:Grenze Gotisch>%{x}</b><br><br><b>Player : </b>" + name + "<br> <b>Lines : </b> %{y}")))
+
+    fig = go.Figure(data=data_bar)
+
+    fig.update_layout(barmode='stack', 
+    template=pio.templates['simple_white+new_template'],
+    title=dict(text='Lines per act'))
     return fig
 
 
@@ -89,10 +92,6 @@ def update_y_axis(fig, mode):
     # TODO : Update the y axis title according to the current mode
 
 def update_x_axis(data):
-    data['Act'] = data['Act'].replace(1, 'Act 1')
-    data['Act'] = data['Act'].replace(2, 'Act 2')
-    data['Act'] = data['Act'].replace(3, 'Act 3')
-    data['Act'] = data['Act'].replace(4, 'Act 4')
-    data['Act'] = data['Act'].replace(5, 'Act 5')
-
+    for i in range(1,6) :
+        data['Act'] = data['Act'].replace(i, 'Act ' + str(i))
     return data

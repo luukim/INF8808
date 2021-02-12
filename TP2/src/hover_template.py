@@ -3,6 +3,13 @@
 '''
 from modes import MODES
 
+import plotly.graph_objects as go
+import plotly.express as px
+import pandas as pd
+import math
+
+import dash_html_components as html
+
 
 def get_hover_template(name, mode):
     '''
@@ -10,7 +17,7 @@ def get_hover_template(name, mode):
 
         The template contains:
             * A title stating the hovered element's x value, with:
-                - Font family: Grenze Gotish
+                - Font family: Grenze Gotisch
                 - Font size: 24px
                 - Font color: Black
             * A bold label for the player name followed
@@ -28,7 +35,12 @@ def get_hover_template(name, mode):
         Returns:
             The hover template with the elements descibed above
     '''
-    # TODO: Generate and return the over template
-    
+    # TODO: Generate and return the over template    
+    # x = ['Act 1', 'Act 2', 'Act 3', 'Act 4', 'Act 5']
+    # y = 
 
-    return ''
+    # hovertemplate = html.span(title= 'Act1', style='Grenze Gotish', )
+    # hovertemplate = html.Div([html.P("Hovermode"), ])
+
+    
+    return "<b>Player : </b>" + name + "<br> " + "<b>Lines : </b>105"
