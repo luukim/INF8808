@@ -47,6 +47,9 @@ def draw(fig, data, mode):
     # TODO : Update the figure's data according to the selected mode
 
     y_axis = ""
+    data_bar = []
+    fig.data = []
+
     if (mode ==  MODES['count']): 
         y_axis = 'PlayerLine'
     elif (mode ==  MODES['percent']): 
@@ -54,18 +57,15 @@ def draw(fig, data, mode):
 
     data = update_x_axis(data)
 
-    data_bar = []
     names = data['Player'].unique()
 
     for name in names:
-        data_bar.append(go.Bar(go.Bar(name=name, x=data.loc[data['Player'] == name]['Act'], y=data.loc[data['Player'] == name][y_axis], 
-            hovertemplate= get_hover_template(name,mode))))
+        data_bar.append(go.Bar(go.Bar(name=name, x=data.loc[data['Player'] == name]['Act'], y=data.loc[data['Player'] == name][y_axis],
+        hovertemplate= get_hover_template(name,mode))))
 
-    fig = go.Figure(data=data_bar)
+    fig.add_traces(data=data_bar)
+    fig.update_layout(barmode='stack')
 
-    fig.update_layout(barmode='stack', 
-    template=pio.templates['simple_white+new_template'],
-    title=dict(text='Lines per act'))
     return fig
 
 

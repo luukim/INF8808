@@ -60,7 +60,7 @@ def create_template():
     plot_bgcolor=THEME['background_color'],
 
     hoverlabel = dict(bgcolor=THEME['label_background_color'], font_size=THEME['label_font_size'],font_color= THEME['font_color']),
-    hovermode='closest',
+    
     ),
     
     data_bar=data_bar
