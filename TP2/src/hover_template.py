@@ -36,4 +36,4 @@ def get_hover_template(name, mode):
         unit = '%'
         y = "%{y:.2f}"
     
-    return "<b style=color:black;font-size:24px;font-family:Grenze-Gotisch>%{x}</b><br><br><b>Player : </b>" + name + "<br><b>Lines : </b>" + y + unit
+    return "<b style = 'font-size:24px; color:black; font-family:Grenze Gotisch'>%{x}</b><br><br><b>Player : </b>" + name + "<br><b>Lines : </b>" + y + unit
