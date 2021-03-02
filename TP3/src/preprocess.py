@@ -2,7 +2,10 @@
     Contains some functions to preprocess the data used in the visualisation.
 '''
 import pandas as pd
+import numpy as np
+import datetime
 
+df = pd.read_csv('./assets/data/arbres.csv')
 
 def convert_dates(dataframe):
     '''
@@ -14,6 +17,7 @@ def convert_dates(dataframe):
             The processed dataframe with datetime-formatted dates.
     '''
     # TODO : Convert dates
+    dataframe['Date_Plantation']= pd.to_datetime(dataframe['Date_Plantation'])
     return dataframe
 
 
@@ -30,6 +34,8 @@ def filter_years(dataframe, start, end):
             The dataframe filtered by date.
     '''
     # TODO : Filter by dates
+    filter_date = (dataframe['Date_Plantation'] > pd.to_datetime(start,format='%Y')) & (dataframe['Date_Plantation'] <= pd.to_datetime(end + 1,format='%Y'))
+    dataframe = dataframe.loc[filter_date]
     return dataframe
 
 
@@ -47,7 +53,10 @@ def summarize_yearly_counts(dataframe):
             trees for each neighborhood each year.
     '''
     # TODO : Summarize df
-    return None
+    dataframe["Count"] = 1
+    dataframe['Date_Plantation'] = dataframe['Date_Plantation'].dt.year
+    dataframe = dataframe.groupby(["Arrond_Nom", "Date_Plantation"])["Count"].count().reset_index(name="Counts")
+    return dataframe
 
 
 def restructure_df(yearly_df):
@@ -69,7 +78,12 @@ def restructure_df(yearly_df):
             The restructured dataframe
     '''
     # TODO : Restructure df and fill empty cells with 0
-    return None
+    yearly_df = yearly_df.rename(columns={'Counts': ''})
+    # yearly_df['Date_Plantation'] = pd.to_datetime(yearly_df['Date_Plantation']*1000 + 365, format = "%Y%j")
+    yearly_df = yearly_df.pivot(index ='Arrond_Nom', columns ='Date_Plantation') 
+    
+    yearly_df = yearly_df.fillna(0)
+    return yearly_df
 
 
 def get_daily_info(dataframe, arrond, year):
@@ -87,4 +101,15 @@ def get_daily_info(dataframe, arrond, year):
             neighborhood and year.
     '''
     # TODO : Get daily tree count data and return
-    return None
+    dataframe['Date_Plantation']= pd.to_datetime(dataframe['Date_Plantation'])
+    date_start = datetime.datetime.strptime( (str(year) +'0101'), '%Y%m%d')
+    date_end = datetime.datetime.strptime((str(year) + '1231'), '%Y%m%d') 
+    dataframe["Count"] = 1
+    dataframe = dataframe.loc[(dataframe['Arrond_Nom'] == arrond) & (dataframe['Date_Plantation'] > date_start)  & (dataframe['Date_Plantation'] <= date_end)]
+    dataframe = dataframe.groupby(["Date_Plantation"])["Count"].count().reset_index(name="Counts")
+    print(dataframe)
+    return dataframe
+
+
+if __name__ == '__main__':
+    get_daily_info(df,'Ahuntsic - Cartierville',2017)
