@@ -78,10 +78,8 @@ def restructure_df(yearly_df):
             The restructured dataframe
     '''
     # TODO : Restructure df and fill empty cells with 0
-    yearly_df = yearly_df.rename(columns={'Counts': ''})
     # yearly_df['Date_Plantation'] = pd.to_datetime(yearly_df['Date_Plantation']*1000 + 365, format = "%Y%j")
-    yearly_df = yearly_df.pivot(index ='Arrond_Nom', columns ='Date_Plantation') 
-    
+    yearly_df = yearly_df.pivot(index ='Arrond_Nom', columns ='Date_Plantation', values='Counts') 
     yearly_df = yearly_df.fillna(0)
     return yearly_df
 
@@ -101,15 +99,10 @@ def get_daily_info(dataframe, arrond, year):
             neighborhood and year.
     '''
     # TODO : Get daily tree count data and return
-    dataframe['Date_Plantation']= pd.to_datetime(dataframe['Date_Plantation'])
-    date_start = datetime.datetime.strptime( (str(year) +'0101'), '%Y%m%d')
-    date_end = datetime.datetime.strptime((str(year) + '1231'), '%Y%m%d') 
-    dataframe["Count"] = 1
-    dataframe = dataframe.loc[(dataframe['Arrond_Nom'] == arrond) & (dataframe['Date_Plantation'] > date_start)  & (dataframe['Date_Plantation'] <= date_end)]
-    dataframe = dataframe.groupby(["Date_Plantation"])["Count"].count().reset_index(name="Counts")
-    print(dataframe)
-    return dataframe
-
-
-if __name__ == '__main__':
-    get_daily_info(df,'Ahuntsic - Cartierville',2017)
+    # date_start = datetime.datetime.strptime( (str(year) +'0101'), '%Y%m%d')
+    # date_end = datetime.datetime.strptime((str(year) + '1231'), '%Y%m%d') 
+    # dataframe["Count"] = 1
+    # dataframe = dataframe.loc[(dataframe['Arrond_Nom'] == arrond) & (dataframe['Date_Plantation'] > date_start)  & (dataframe['Date_Plantation'] <= date_end)]
+    # dataframe = dataframe.groupby(["Date_Plantation"])["Count"].count().reset_index(name="Counts")
+    # print(dataframe)
+    # return dataframe

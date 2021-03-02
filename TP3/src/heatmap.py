@@ -3,6 +3,7 @@
 '''
 import plotly.express as px
 import hover_template
+import template
 
 
 def get_figure(data):
@@ -20,5 +21,6 @@ def get_figure(data):
 
     # TODO : Create the heatmap. Make sure to set dragmode=False in
     # the layout. Also don't forget to include the hover template.
-
-    return None
+    # color_continuous_scale=px.colors.sequential.Bluyl
+    fig = px.imshow(data)
+    return fig
