@@ -46,7 +46,7 @@ def create_custom_theme():
         Specifies the x-axis ticks are tilted 45
         degrees to the right.
     '''
-    # TODO : Generate template described above
+    # TODO : Generate template described above + ajout couleur de la line
 
     pio.templates['new_template'] = go.layout.Template(
         layout=go.Layout(

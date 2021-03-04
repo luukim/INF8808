@@ -2,8 +2,7 @@
     Contains some functions related to the creation of the heatmap.
 '''
 import plotly.express as px
-import hover_template
-import template
+import hover_template as template
 
 
 def get_figure(data):
@@ -23,4 +22,5 @@ def get_figure(data):
     # the layout. Also don't forget to include the hover template.
     # color_continuous_scale=px.colors.sequential.Bluyl
     fig = px.imshow(data)
+    fig.update_traces(hovertemplate=template.get_heatmap_hover_template())
     return fig

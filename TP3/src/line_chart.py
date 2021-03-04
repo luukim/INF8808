@@ -2,7 +2,7 @@
     Contains some functions related to the creation of the line chart.
 '''
 import plotly.express as px
-import hover_template
+import hover_template as template
 
 from template import THEME
 
@@ -82,7 +82,7 @@ def get_figure(line_data, arrond, year):
         fig = px.scatter(x=line_data['Date_Plantation'], y=line_data['Count_trees_daily'])
     elif(len(line_data) > 1) : 
         fig = px.line(x=line_data['Date_Plantation'], y=line_data['Count_trees_daily'])
-
+    fig.update_traces(hovertemplate=template.get_linechart_hover_template())
     fig.update_layout(
         xaxis = dict(showgrid=True,  zeroline=True, visible=True, tickformat='%d %b'),
         yaxis = dict(showgrid=True,  zeroline=True, visible=True, ),

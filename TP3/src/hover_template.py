@@ -15,6 +15,7 @@ def get_heatmap_hover_template():
         are font 'Roboto' and regular weight.
     '''
     # TODO : Define and return the hover template
+    return "<b style = 'font-weight:bold; font-family:Roboto Slab'>Neighborhood : </b>" + "<b style = 'font-family:Roboto'>%{x} </b>" + "<br><b style = 'font-family:Roboto Slab'>Year : </b>" + "<b style = 'font-family:Roboto'>%{y}</b>" + "<br><b style = 'font-family:Roboto Slab'>Trees planted : </b>" + "<b style = 'font-family:Roboto'>%{z}</b>"+ "<extra></extra>"
 
 def get_linechart_hover_template():
     '''
@@ -27,4 +28,5 @@ def get_linechart_hover_template():
         are font 'Roboto' and regular weight.
     '''
     # TODO : Define and return the hover template
+    return "<b style = 'font-family:Roboto Slab'>Date : </b>" + "<b style = 'font-family:Roboto'>%{x}</b>" + "<br><b style = 'font-family:Roboto Slab'>Trees planted : </b>" + "<b style = 'font-family:Roboto'>%{y}</b>" + "<extra></extra>"
 
