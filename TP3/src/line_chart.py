@@ -41,7 +41,7 @@ def add_rectangle_shape(fig):
         paper of the figure. The height goes from
         0.25% to 0.75% the height of the figure.
     '''
-    # TODO : Draw the rectangle
+    # TODO : Draw the rectangle + 2eme partie de l enonce
     fig.update_layout(
     shapes=[
         dict(
@@ -78,9 +78,11 @@ def get_figure(line_data, arrond, year):
             The figure to be displayed
     '''
     # TODO : Construct the required figure. Don't forget to include the hover template
-    fig = px.line(line_data)
+    fig = px.line(x=line_data['Date_Plantation'], y=line_data['Count_trees_daily'])
     fig.update_layout(
-        xaxis = dict(showgrid=True,  zeroline=True, visible=True),
-        yaxis = dict(showgrid=True,  zeroline=True, visible=True),
+        xaxis = dict(showgrid=True,  zeroline=True, visible=True, tickformat='%d %b'),
+        yaxis = dict(showgrid=True,  zeroline=True, visible=True, ),
+        title= 'Trees planted in ' + arrond + ' in ' + str(year),
+        yaxis_title = 'Trees',
     )
     return fig

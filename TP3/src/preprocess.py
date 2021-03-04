@@ -55,7 +55,7 @@ def summarize_yearly_counts(dataframe):
     # TODO : Summarize df
     dataframe["Count"] = 1
     dataframe["Date_year"] = dataframe['Date_Plantation'].dt.year
-    dataframe = dataframe.groupby(["Arrond_Nom", "Date_year"])["Count"].count().reset_index(name="Counts")
+    dataframe = dataframe.groupby(["Arrond_Nom", "Date_year"])["Count"].count().reset_index(name="Counts_trees_yearly")
     return dataframe
 
 
@@ -79,7 +79,7 @@ def restructure_df(yearly_df):
     '''
     # TODO : Restructure df and fill empty cells with 0
     # yearly_df['Date_Plantation'] = pd.to_datetime(yearly_df['Date_Plantation']*1000 + 365, format = "%Y%j")
-    yearly_df = yearly_df.pivot(index ='Arrond_Nom', columns ='Date_year', values='Counts') 
+    yearly_df = yearly_df.pivot(index ='Arrond_Nom', columns ='Date_year', values='Counts_trees_yearly') 
     yearly_df = yearly_df.fillna(0)
     return yearly_df
 
@@ -101,8 +101,7 @@ def get_daily_info(dataframe, arrond, year):
     # TODO : Get daily tree count data and return
     date_start = datetime.datetime.strptime( (str(year) +'0101'), '%Y%m%d')
     date_end = datetime.datetime.strptime((str(year) + '1231'), '%Y%m%d') 
-    dataframe["Count"] = 1
+    dataframe["Count_tree_daily"] = 1
     dataframe = dataframe.loc[(dataframe['Arrond_Nom'] == arrond) & (dataframe['Date_Plantation'] > date_start)  & (dataframe['Date_Plantation'] <= date_end)]
-    dataframe = dataframe.groupby(["Date_Plantation"])["Count"].count().reset_index(name="Counts")
-    print(dataframe)
+    dataframe = dataframe.groupby(["Date_Plantation"])["Count_tree_daily"].count().reset_index(name="Count_trees_daily")
     return dataframe
