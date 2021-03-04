@@ -18,7 +18,17 @@ def get_empty_figure():
 
     # TODO : Construct the empty figure to display. Make sure to 
     # set dragmode=False in the layout.
-    return None
+    fig = px.line()
+    fig.update_layout(
+        dragmode=False,
+        xaxis = dict(showgrid=False,  zeroline=False, visible=False),
+        yaxis = dict(showgrid=False,  zeroline=False, visible=False),
+    )
+    fig.add_annotation( showarrow=False,
+    text="No data to display. Select a cell in the heatmap for more information.")
+
+ 
+    return fig
 
 
 def add_rectangle_shape(fig):
@@ -32,6 +42,17 @@ def add_rectangle_shape(fig):
         0.25% to 0.75% the height of the figure.
     '''
     # TODO : Draw the rectangle
+    fig.update_layout(
+    shapes=[
+        dict(
+            type="rect",
+            xref="x",
+            yref="y",
+            fillcolor=THEME['pale_color'],
+            line_width=0,
+        ),
+    ]
+)
     return None
 
 
@@ -57,4 +78,9 @@ def get_figure(line_data, arrond, year):
             The figure to be displayed
     '''
     # TODO : Construct the required figure. Don't forget to include the hover template
-    return None
+    fig = px.line(line_data)
+    fig.update_layout(
+        xaxis = dict(showgrid=True,  zeroline=True, visible=True),
+        yaxis = dict(showgrid=True,  zeroline=True, visible=True),
+    )
+    return fig
