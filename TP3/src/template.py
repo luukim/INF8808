@@ -59,10 +59,10 @@ def create_custom_theme():
         hoverlabel = dict(bgcolor=THEME['label_background_color'], font_size=THEME['label_font_size'],font_color= THEME['dark_color']),
         hovermode='closest',
         colorscale =dict(sequential=THEME['colorscale']),
-        xaxis = dict(tickangle=(360- 45))
+        xaxis = dict(tickangle=(360- 45)),
         ),
+        # data_scatter=go.Scatter(line= dict(color=THEME['line_chart_color'])),
     )
-
 
 
 def set_default_theme():

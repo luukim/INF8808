@@ -2,8 +2,6 @@
     Contains some functions to preprocess the data used in the visualisation.
 '''
 import pandas as pd
-import numpy as np
-import datetime
 
 df = pd.read_csv('./assets/data/arbres.csv')
 
@@ -81,7 +79,6 @@ def restructure_df(yearly_df):
     # yearly_df['Date_Plantation'] = pd.to_datetime(yearly_df['Date_Plantation']*1000 + 365, format = "%Y%j")
     yearly_df = yearly_df.pivot(index ='Arrond_Nom', columns ='Date_year', values='Counts_trees_yearly') 
     yearly_df = yearly_df.fillna(0)
-    print(yearly_df)
     return yearly_df
 
 
@@ -100,12 +97,13 @@ def get_daily_info(dataframe, arrond, year):
             neighborhood and year.
     '''
     # TODO : Get daily tree count data and return
-    date_start = datetime.datetime.strptime( (str(year) +'0101'), '%Y%m%d')
-    date_end = datetime.datetime.strptime((str(year) + '1231'), '%Y%m%d') 
+    date_start = pd.to_datetime(str(year) +'0101')
+    print(date_start)
+    date_end = pd.to_datetime(str(year) + '1231') 
+    print(date_end)
     dataframe["Count_trees_daily"] = 1
     dataframe = dataframe.loc[(dataframe['Arrond_Nom'] == arrond) & (dataframe['Date_Plantation'] > date_start)  & (dataframe['Date_Plantation'] <= date_end)]
     dataframe = dataframe.groupby(["Date_Plantation"])["Count_trees_daily"].count().reset_index(name="Count_trees_daily")
-    print(dataframe)
 
     df = pd.date_range(dataframe['Date_Plantation'][0],dataframe['Date_Plantation'][len(dataframe['Date_Plantation'])-1],freq='d')
     dataframe_per_day = pd.DataFrame()
@@ -116,6 +114,5 @@ def get_daily_info(dataframe, arrond, year):
         for j in range(0,len(dataframe['Date_Plantation'])):
             if dataframe_per_day["Date_Plantation"][i] == dataframe['Date_Plantation'][j]:
                 dataframe_per_day["Count_trees_daily"][i] = dataframe['Count_trees_daily'][j]
-    print(dataframe_per_day)
 
     return dataframe_per_day
