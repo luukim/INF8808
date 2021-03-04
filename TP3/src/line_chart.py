@@ -78,7 +78,11 @@ def get_figure(line_data, arrond, year):
             The figure to be displayed
     '''
     # TODO : Construct the required figure. Don't forget to include the hover template
-    fig = px.line(x=line_data['Date_Plantation'], y=line_data['Count_trees_daily'])
+    if(len(line_data) == 1) :
+        fig = px.scatter(x=line_data['Date_Plantation'], y=line_data['Count_trees_daily'])
+    elif(len(line_data) > 1) : 
+        fig = px.line(x=line_data['Date_Plantation'], y=line_data['Count_trees_daily'])
+
     fig.update_layout(
         xaxis = dict(showgrid=True,  zeroline=True, visible=True, tickformat='%d %b'),
         yaxis = dict(showgrid=True,  zeroline=True, visible=True, ),

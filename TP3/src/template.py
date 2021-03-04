@@ -47,6 +47,7 @@ def create_custom_theme():
         degrees to the right.
     '''
     # TODO : Generate template described above
+
     pio.templates['new_template'] = go.layout.Template(
         layout=go.Layout(
         font_color= THEME['dark_color'],
@@ -58,7 +59,7 @@ def create_custom_theme():
         hoverlabel = dict(bgcolor=THEME['label_background_color'], font_size=THEME['label_font_size'],font_color= THEME['dark_color']),
         hovermode='closest',
         colorscale =dict(sequential=THEME['colorscale']),
-        xaxis = dict(tickangle=(360- 45)),
+        xaxis = dict(tickangle=(360- 45))
         ),
     )
 
