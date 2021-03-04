@@ -104,4 +104,10 @@ def get_daily_info(dataframe, arrond, year):
     dataframe["Count_tree_daily"] = 1
     dataframe = dataframe.loc[(dataframe['Arrond_Nom'] == arrond) & (dataframe['Date_Plantation'] > date_start)  & (dataframe['Date_Plantation'] <= date_end)]
     dataframe = dataframe.groupby(["Date_Plantation"])["Count_tree_daily"].count().reset_index(name="Count_trees_daily")
+    print(dataframe)
+    # df = pd.date_range(date_start,date_end,freq='d')
+    # dataframe_per_day = pd.DataFrame(df)
+    # dataframe_per_day["Count_tree_daily"] = 0
+    # print(dataframe_per_day)
+
     return dataframe
