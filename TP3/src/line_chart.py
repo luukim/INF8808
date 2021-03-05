@@ -47,11 +47,12 @@ def add_rectangle_shape(fig):
     shapes=[
         dict(
             type="rect",
-            xref="x",
-            yref="y",
+            xref='paper',
+            yref='paper',
             fillcolor=THEME['pale_color'],
             line_width=0,
-            x0=0, y0=0, x1=5, y1=3
+            x0=0, y0=0.25, 
+            x1=1, y1=0.75
         ),
     ]
 )
