@@ -86,9 +86,8 @@ def get_figure(line_data, arrond, year):
         fig = px.line(x=line_data['Date_Plantation'], y=line_data['Count_trees_daily'])
     fig.update_traces(hovertemplate=template.get_linechart_hover_template())
     fig.update_layout(
-        xaxis = dict(showgrid=True,  zeroline=True, visible=True, tickformat='%d %b'),
-        yaxis = dict(showgrid=True,  zeroline=True, visible=True, ),
+        xaxis = dict(showgrid=True,  zeroline=True, visible=True, tickformat='%d %b',title = ''),
+        yaxis = dict(showgrid=True,  zeroline=True, visible=True, title = 'Trees',),
         title= 'Trees planted in ' + arrond + ' in ' + str(year),
-        yaxis_title = 'Trees',
     )
     return fig
