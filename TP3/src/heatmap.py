@@ -20,9 +20,8 @@ def get_figure(data):
 
     # TODO : Create the heatmap. Make sure to set dragmode=False in
     # the layout. Also don't forget to include the hover template.
-    # color_continuous_scale=px.colors.sequential.Bluyl
     fig = px.imshow(data)
-    fig.update_xaxes(title=dict(text=''))
+    fig.update_xaxes(title=dict(text=''), type='log')
     fig.update_yaxes(title=dict(text=''))
     fig.update_layout(coloraxis_colorbar=dict(title="Trees"))
     fig.update_traces(hovertemplate=template.get_heatmap_hover_template())
