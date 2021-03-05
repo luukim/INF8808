@@ -42,6 +42,7 @@ def add_rectangle_shape(fig):
         0.25% to 0.75% the height of the figure.
     '''
     # TODO : Draw the rectangle + 2eme partie de l enonce
+
     fig.update_layout(
     shapes=[
         dict(
@@ -50,6 +51,7 @@ def add_rectangle_shape(fig):
             yref="y",
             fillcolor=THEME['pale_color'],
             line_width=0,
+            x0=0, y0=0, x1=5, y1=3
         ),
     ]
 )
