@@ -76,7 +76,6 @@ def restructure_df(yearly_df):
             The restructured dataframe
     '''
     # TODO : Restructure df and fill empty cells with 0
-    # yearly_df['Date_Plantation'] = pd.to_datetime(yearly_df['Date_Plantation']*1000 + 365, format = "%Y%j")
     yearly_df = yearly_df.pivot(index ='Arrond_Nom', columns ='Date_year', values='Counts_trees_yearly') 
     yearly_df = yearly_df.fillna(0)
     return yearly_df
