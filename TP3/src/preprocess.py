@@ -97,17 +97,16 @@ def get_daily_info(dataframe, arrond, year):
             neighborhood and year.
     '''
     # TODO : Get daily tree count data and return
-    date_start = pd.to_datetime(str(year) +'0101')
-    print(date_start)
-    date_end = pd.to_datetime(str(year) + '1231') 
-    print(date_end)
+
+    date_start_year = pd.to_datetime(str(year) +'0101')
+    date_end_year  = pd.to_datetime(str(year) + '1231') 
+
     dataframe["Count_trees_daily"] = 1
-    dataframe = dataframe.loc[(dataframe['Arrond_Nom'] == arrond) & (dataframe['Date_Plantation'] > date_start)  & (dataframe['Date_Plantation'] <= date_end)]
+    dataframe = dataframe.loc[(dataframe['Arrond_Nom'] == arrond) & (dataframe['Date_Plantation'] > date_start_year)  & (dataframe['Date_Plantation'] <= date_end_year)]
     dataframe = dataframe.groupby(["Date_Plantation"])["Count_trees_daily"].count().reset_index(name="Count_trees_daily")
 
-    df = pd.date_range(dataframe['Date_Plantation'][0],dataframe['Date_Plantation'][len(dataframe['Date_Plantation'])-1],freq='d')
     dataframe_per_day = pd.DataFrame()
-    dataframe_per_day["Date_Plantation"] = df
+    dataframe_per_day["Date_Plantation"] = pd.date_range(dataframe['Date_Plantation'][0],dataframe['Date_Plantation'][len(dataframe['Date_Plantation'])-1],freq='d')
     dataframe_per_day["Count_trees_daily"] = 0
 
     for i in range(0,len(dataframe_per_day["Date_Plantation"])):
