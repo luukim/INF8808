@@ -5,6 +5,7 @@ import pandas as pd
 
 df = pd.read_csv('./assets/data/arbres.csv')
 
+
 def convert_dates(dataframe):
     '''
         Converts the dates in the dataframe to datetime objects.
@@ -15,7 +16,7 @@ def convert_dates(dataframe):
             The processed dataframe with datetime-formatted dates.
     '''
     # TODO : Convert dates
-    dataframe['Date_Plantation']= pd.to_datetime(dataframe['Date_Plantation'])
+    dataframe['Date_Plantation'] = pd.to_datetime(dataframe['Date_Plantation'])
     return dataframe
 
 
@@ -32,7 +33,8 @@ def filter_years(dataframe, start, end):
             The dataframe filtered by date.
     '''
     # TODO : Filter by dates
-    filter_date = (dataframe['Date_Plantation'] > pd.to_datetime(start,format='%Y')) & (dataframe['Date_Plantation'] <= pd.to_datetime(end + 1,format='%Y'))
+    filter_date = (dataframe['Date_Plantation'] > pd.to_datetime(start, format='%Y')) & (
+        dataframe['Date_Plantation'] <= pd.to_datetime(end + 1, format='%Y'))
     dataframe = dataframe.loc[filter_date]
     return dataframe
 
@@ -53,7 +55,8 @@ def summarize_yearly_counts(dataframe):
     # TODO : Summarize df
     dataframe["Count"] = 1
     dataframe["Date_year"] = dataframe['Date_Plantation'].dt.year
-    dataframe = dataframe.groupby(["Arrond_Nom", "Date_year"])["Count"].count().reset_index(name="Counts_trees_yearly")
+    dataframe = dataframe.groupby(["Arrond_Nom", "Date_year"])[
+        "Count"].count().reset_index(name="Counts_trees_yearly")
     return dataframe
 
 
@@ -76,7 +79,8 @@ def restructure_df(yearly_df):
             The restructured dataframe
     '''
     # TODO : Restructure df and fill empty cells with 0
-    yearly_df = yearly_df.pivot(index ='Arrond_Nom', columns ='Date_year', values='Counts_trees_yearly') 
+    yearly_df = yearly_df.pivot(
+        index='Arrond_Nom', columns='Date_year', values='Counts_trees_yearly')
     yearly_df = yearly_df.fillna(0)
     return yearly_df
 
@@ -97,19 +101,22 @@ def get_daily_info(dataframe, arrond, year):
     '''
     # TODO : Get daily tree count data and return
 
-    date_start_year = pd.to_datetime(str(year) +'0101')
-    date_end_year  = pd.to_datetime(str(year) + '1231') 
+    date_start_year = pd.to_datetime(str(year) + '0101')
+    date_end_year = pd.to_datetime(str(year) + '1231')
 
-    dataframe["Count_trees_daily"] = 1
-    dataframe = dataframe.loc[(dataframe['Arrond_Nom'] == arrond) & (dataframe['Date_Plantation'] > date_start_year)  & (dataframe['Date_Plantation'] <= date_end_year)]
-    dataframe = dataframe.groupby(["Date_Plantation"])["Count_trees_daily"].count().reset_index(name="Count_trees_daily")
+    dataframe["Count"] = 1
+    dataframe = dataframe.loc[(dataframe['Arrond_Nom'] == arrond) & (
+        dataframe['Date_Plantation'] > date_start_year) & (dataframe['Date_Plantation'] <= date_end_year)]
+    dataframe = dataframe.groupby(["Date_Plantation"])[
+        "Count"].count().reset_index(name="Count_trees_daily")
 
     dataframe_per_day = pd.DataFrame()
-    dataframe_per_day["Date_Plantation"] = pd.date_range(dataframe['Date_Plantation'][0],dataframe['Date_Plantation'][len(dataframe['Date_Plantation'])-1],freq='d')
+    dataframe_per_day["Date_Plantation"] = pd.date_range(
+        dataframe['Date_Plantation'][0], dataframe['Date_Plantation'][len(dataframe['Date_Plantation'])-1], freq='d')
     dataframe_per_day["Count_trees_daily"] = 0
 
-    for i in range(0,len(dataframe_per_day["Date_Plantation"])):
-        for j in range(0,len(dataframe['Date_Plantation'])):
+    for i in range(0, len(dataframe_per_day["Date_Plantation"])):
+        for j in range(0, len(dataframe['Date_Plantation'])):
             if dataframe_per_day["Date_Plantation"][i] == dataframe['Date_Plantation'][j]:
                 dataframe_per_day["Count_trees_daily"][i] = dataframe['Count_trees_daily'][j]
 

@@ -16,18 +16,16 @@ def get_empty_figure():
 
     '''
 
-    # TODO : Construct the empty figure to display. Make sure to 
+    # TODO : Construct the empty figure to display. Make sure to
     # set dragmode=False in the layout.
     fig = px.line()
     fig.update_layout(
         dragmode=False,
-        xaxis = dict(showgrid=False,  zeroline=False, visible=False),
-        yaxis = dict(showgrid=False,  zeroline=False, visible=False),
+        xaxis=dict(showgrid=False,  zeroline=False, visible=False),
+        yaxis=dict(showgrid=False,  zeroline=False, visible=False),
     )
-    fig.add_annotation( showarrow=False,
-    text="No data to display. Select a cell in the heatmap for more information.")
-
- 
+    fig.add_annotation(
+        text="No data to display. Select a cell in the heatmap for more information.", showarrow=False)
     return fig
 
 
@@ -44,18 +42,18 @@ def add_rectangle_shape(fig):
     # TODO : Draw the rectangle + 2eme partie de l enonce
 
     fig.update_layout(
-    shapes=[
-        dict(
-            type="rect",
-            xref='paper',
-            yref='paper',
-            fillcolor=THEME['pale_color'],
-            line_width=0,
-            x0=0, y0=0.25, 
-            x1=1, y1=0.75
-        ),
-    ]
-)
+        shapes=[
+            dict(
+                type="rect",
+                fillcolor=THEME['pale_color'],
+                xref='paper',
+                yref='paper',
+                line_width=0,
+                x0=0, y0=0.25,
+                x1=1, y1=0.75
+            ),
+        ]
+    )
     return None
 
 
@@ -81,14 +79,19 @@ def get_figure(line_data, arrond, year):
             The figure to be displayed
     '''
     # TODO : Construct the required figure. Don't forget to include the hover template
-    if(len(line_data) == 1) :
-        fig = px.scatter(x=line_data['Date_Plantation'], y=line_data['Count_trees_daily'])
-    elif(len(line_data) > 1) : 
-        fig = px.line(x=line_data['Date_Plantation'], y=line_data['Count_trees_daily'])
+
+    if(len(line_data) == 1):
+        fig = px.scatter(x=line_data['Date_Plantation'],
+                         y=line_data['Count_trees_daily'])
+    elif(len(line_data) > 1):
+        fig = px.line(x=line_data['Date_Plantation'],
+                      y=line_data['Count_trees_daily'])
+
     fig.update_traces(hovertemplate=template.get_linechart_hover_template())
     fig.update_layout(
-        xaxis = dict(showgrid=True,  zeroline=True, visible=True, tickformat='%d %b',title = ''),
-        yaxis = dict(showgrid=True,  zeroline=True, visible=True, title = 'Trees',),
-        title= 'Trees planted in ' + arrond + ' in ' + str(year),
-    )
+        xaxis=dict(showgrid=True,  zeroline=True,
+                   visible=True, tickformat='%d %b', title=''),
+        yaxis=dict(showgrid=True,  zeroline=True,
+                   visible=True, title='Trees',),
+        title='Trees planted in ' + arrond + ' in ' + str(year))
     return fig
