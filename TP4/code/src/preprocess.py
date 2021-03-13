@@ -52,7 +52,8 @@ def combine_dfs(df1, df2):
     # TODO : Combine the two dataframes
     df1['Year'] = 2000
     df2['Year'] = 2015
-    df1 = df1.append(df2, sort=False)
+    df1 = df1.append(df2)
+    print(df1)
     return df1
 
 
