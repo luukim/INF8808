@@ -17,8 +17,8 @@ def get_bubble_hover_template():
             The content of the tooltip
     '''
     # TODO : Generate tooltip
-    style_country = "<b style = 'font-weight:bold'>Country : </b>" + "<b style = 'font-weight:normal'>%{country}</b>" 
-    style_population = "<br><b style = 'font-weight:bold'>Population : </b >" + "<b style = 'font-weight:normal'>{size} </b>"
+    style_country = "<b style = 'font-weight:bold'>Country : </b>" + "<b style = 'font-weight:normal'>%{hover.name}</b>" 
+    style_population = "<br><b style = 'font-weight:bold'>Population : </b >" + "<b style = 'font-weight:normal'>%{marker.size} </b>"
     style_gdp = "<br><b style = 'font-weight:bold'>GDP : </b>" + "<b style = 'font-weight:normal'>%{x} $ (USD)</b>"
     style_co2 = "<br><b style = 'font-weight:bold'>CO2 : </b>" + "<b style = 'font-weight:normal'> %{y} metric tonnes </b>"
 
